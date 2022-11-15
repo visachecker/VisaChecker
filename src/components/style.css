@@ -8,14 +8,14 @@ body {
   }
   
   .form {
-    background-color: black;
+    background-color: #121212;
     border-radius: 5px;
     width: 550px;
     margin: 20px auto;
     padding: 20px;
     text-align: left;
     padding: 20px 10px;
-    
+    border-radius: 25px;
   }
   
   .form-body > * {
@@ -45,7 +45,7 @@ body {
 
   .btn {
     background: #fff;
-    -webkit-border-radius: 25px;
+    border-radius: 25px;
     padding: 12.5px;
     padding-right: 20px;
     padding-left: 20px;
