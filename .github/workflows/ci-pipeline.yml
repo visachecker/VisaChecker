@@ -19,4 +19,4 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+        run: ./VisaChecker.Server/gradlew build --no-daemon
