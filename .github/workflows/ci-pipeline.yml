@@ -9,6 +9,9 @@ permissions:
 
 jobs:
   build-server:
+    defaults:
+      run:
+        working-directory: ./VisaChecker.Server
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,9 +19,5 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: 'adopt'
-          cache: gradle
-      - name: Set Gradle executable
-        run: chmod +x ./VisaChecker.Server/gradlew    
-      - name: Build with Gradle
-        run: ./VisaChecker.Server/gradlew build --no-daemon
+          distribution: "adopt"
+      - uses: gradle/gradle-build-action@v2
