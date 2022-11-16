@@ -36,7 +36,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'yarn'
       - name: Install project dependencies
-        run: yarn --prefer-offline --frozen-lockfile
+        run: yarn --frozen-lockfile
       - run: yarn build
