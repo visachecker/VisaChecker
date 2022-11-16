@@ -19,9 +19,23 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: 'adopt'
+          distribution: "adopt"
           cache: gradle
       - name: Chmod ./gradlew
-        run: chmod +x gradlew    
+        run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
+  build-ui:
+    defaults:
+      run:
+        working-directory: ./VisaChecker.UI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install project dependencies
+        run: yarn --frozen-lockfile
+      - run: yarn build
