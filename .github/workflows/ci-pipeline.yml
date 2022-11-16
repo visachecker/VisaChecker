@@ -18,5 +18,7 @@ jobs:
           java-version: 17
           distribution: 'adopt'
           cache: gradle
+      - name: Set Gradle executable
+        run: chmod +x ./VisaChecker.Server/gradlew    
       - name: Build with Gradle
         run: ./VisaChecker.Server/gradlew build --no-daemon
