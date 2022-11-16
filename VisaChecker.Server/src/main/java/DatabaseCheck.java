@@ -20,7 +20,7 @@ public class DatabaseCheck {
 
         for (UserHelper user : users_database) {
             status = StatusCheck.check(user.getAppNum(), user.getAppNumFak(), user.getType(), user.getYear());
-            update.update_data(user.uniqueID + " - " + user.getAppNum(), status);
+            update.update_data(user.getUniqueID() + " - " + user.getAppNum(), status);
         }
         return status;
     }
