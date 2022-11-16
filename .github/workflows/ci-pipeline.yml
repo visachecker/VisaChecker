@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: "adopt"
-      - uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
+          distribution: 'adopt'
+          cache: gradle
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
