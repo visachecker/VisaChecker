@@ -11,9 +11,9 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.tag.outputs.tag }}
+      tag: ${{ steps.Tag.outputs.tag }}
     steps:
-      - name: Set version
+      - name: Tag
         run: echo tag=0.0.${{ github.run_number }} >> $GITHUB_OUTPUT
   build-server:
     defaults:
