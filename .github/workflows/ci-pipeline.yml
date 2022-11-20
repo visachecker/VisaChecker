@@ -54,8 +54,8 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
           TAG: new
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
+          docker build -t 259168040894.dkr.ecr.eu-central-1.amazonaws.com/visachecker:0.0.1 .
+          docker push 259168040894.dkr.ecr.eu-central-1.amazonaws.com/visachecker:0.0.1
   build-ui:
     defaults:
       run:
