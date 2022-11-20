@@ -81,8 +81,8 @@ jobs:
         with:
           node-version: "16"
       - name: Install project dependencies
-        run: yarn --frozen-lockfile
-      - run: yarn build
+        run: npm ci
+      - run: npm run build
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
