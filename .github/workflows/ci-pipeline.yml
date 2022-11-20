@@ -20,7 +20,6 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
   get-version:
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: test
-        run: echo "::set-output tag=latest"
+        run: echo ::set-output tag=latest
 
   build-server:
     defaults:
@@ -51,16 +50,18 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
+      - name: Set tag
+        run: echo "DOCKER_TAG=${{ needs.get-version.outputs.tag }}" >> $GITHUB_ENV
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ needs.login-aws.steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
+          TAG: visachecker-server:${{ needs.get-version.outputs.tag }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:visachecker-server:${{ needs.get-version.outputs.tag }} .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
           echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$visachecker-server:${{ needs.get-version.outputs.tag }}
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:visachecker-server:${{ needs.get-version.outputs.tag }}"
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
   build-ui:
     defaults:
       run:
@@ -81,8 +82,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{  needs.login-aws.steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
+          TAG: visachecker-ui:${{ needs.get-version.outputs.tag }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:visachecker-ui:${{ needs.get-version.outputs.tag }} .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
           echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:visachecker-ui:${{ needs.get-version.outputs.tag }}
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:visachecker-ui:${{ needs.get-version.outputs.tag }}"
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
