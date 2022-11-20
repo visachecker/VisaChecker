@@ -30,6 +30,8 @@ jobs:
           release_branch: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test
+        run: echo "::set-output tag=latest"
 
   build-server:
     defaults:
@@ -55,7 +57,7 @@ jobs:
           ECR_REGISTRY: ${{ needs.login-aws.steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$visachecker-server:${{ needs.get-version.outputs.tag }} .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:visachecker-server:${{ needs.get-version.outputs.tag }} .
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$visachecker-server:${{ needs.get-version.outputs.tag }}
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:visachecker-server:${{ needs.get-version.outputs.tag }}"
