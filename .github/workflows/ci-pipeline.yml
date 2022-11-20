@@ -50,12 +50,10 @@ jobs:
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
-          TAG: new
+          TAG: ${{ github.sha }}
         run: |
-          docker build -t 259168040894.dkr.ecr.eu-central-1.amazonaws.com/visachecker:0.0.1 .
-          docker push 259168040894.dkr.ecr.eu-central-1.amazonaws.com/visachecker:0.0.1
+          docker build -t public.ecr.aws/t6r8m9s8/visachecker-server:$TAG .
+          docker push public.ecr.aws/t6r8m9s8/visachecker-server:$TAG
   build-ui:
     defaults:
       run:
@@ -83,9 +81,7 @@ jobs:
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
-          TAG: new2
+          TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
+          docker build -t public.ecr.aws/t6r8m9s8/visachecker-ui:$TAG .
+          docker push public.ecr.aws/t6r8m9s8/visachecker-ui:$TAG
