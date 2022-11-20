@@ -52,7 +52,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
-          TAG: visachecker-server
+          TAG: visachecker-server-${{ needs.get-version.outputs.tag }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
@@ -80,12 +80,14 @@ jobs:
       - name: Install project dependencies
         run: yarn --frozen-lockfile
       - run: yarn build
+      - run: echo ${{ steps.login-ecr.outputs.registry }}
+      - run: echo ${{ secrets.ECR_REPO_NAME }}
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
-          TAG: visachecker-ui
+          TAG: visachecker-ui-${{ needs.get-version.outputs.tag }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
