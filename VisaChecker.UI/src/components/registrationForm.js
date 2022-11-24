@@ -5,7 +5,7 @@ import { ref, push, child, update } from 'firebase/database';
 
 function RegistrationForm() {
   const [appNum, setAppNum] = useState(null);
-  const [appNumFake, setAppNumFake] = useState(null);
+  const [appNumFake, setAppNumFake] = useState('');
   const [appCode, setAppCode] = useState(null);
   const [appYear, setAppYear] = useState(null);
   const [email, setEmail] = useState(null);
@@ -30,16 +30,20 @@ function RegistrationForm() {
   };
 
   const handleSubmit = () => {
+    const newPostKey = push(child(ref(database), 'posts')).key;
     let obj = {
       appNum: appNum,
-      appNumFake: appNumFake,
-      appCode: appCode,
-      appYear: appYear,
+      appNumFak: appNumFake,
+      type: appCode,
+      year: appYear,
       email: email,
+      finalStatus: 'false',
+      firstTimeAdded: 'true',
+      status: 'Unknown',
+      uniqueID: newPostKey,
     };
-    const newPostKey = push(child(ref(database), 'posts')).key;
     const updates = {};
-    updates['/' + newPostKey] = obj;
+    updates['/' + newPostKey + '-' + appNum] = obj;
 
     return update(ref(database), updates);
   };
