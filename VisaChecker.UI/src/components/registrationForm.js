@@ -15,7 +15,7 @@ function RegistrationForm() {
     if (id === 'appNum') {
       setAppNum(value);
     }
-    if (id === 'apppNumFake') {
+    if (id === 'appNumFake') {
       setAppNumFake(value);
     }
     if (id === 'appCode') {
