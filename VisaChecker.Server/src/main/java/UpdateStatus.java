@@ -18,10 +18,8 @@ public class UpdateStatus {
         users.put("status", status);
         users.put("firstTimeAdded", "false");
         users.put("finalStatus", "false");
-        reference = rootNode.getReference("users/" + address);
-        System.out.println("Final status is " + users.get(user.getFinalStatus()));
-
-        if (status.equals("Decided - Rejected") || status.equals("Decided - Approved")) {
+        reference = rootNode.getReference(address);
+        if (status.equals("Rejected") || status.equals("Approved")) {
             users.put("finalStatus", "true");
         }
 

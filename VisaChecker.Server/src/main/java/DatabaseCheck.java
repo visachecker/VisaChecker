@@ -9,19 +9,16 @@ import java.util.List;
 @Service
 public class DatabaseCheck {
 
-    public static String checkDatabase() throws InterruptedException, IOException {
+    public static void checkDatabase() throws InterruptedException, IOException {
 
         ImportDatabase result = new ImportDatabase();
         List<UserHelper> users_database = result.get_data();
         UpdateStatus update = new UpdateStatus();
         String status = null;
 
-        System.out.println(users_database);
-
         for (UserHelper user : users_database) {
             status = StatusCheck.check(user.getAppNum(), user.getAppNumFak(), user.getType(), user.getYear());
-            update.update_data(user.getUniqueID() + " - " + user.getAppNum(), status);
+            update.update_data(user.getUniqueID() + "-" + user.getAppNum(), status);
         }
-        return status;
     }
 }

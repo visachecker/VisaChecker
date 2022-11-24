@@ -10,6 +10,22 @@ public class StatusCheck {
 
     public static String check(String applicationNumImport, String xxFieldImport, String applicationTypeImport, String yearImport) {
 
+        final String errorStatus = "Something went wrong";
+        enum Status {
+            APPROVED("Approved"),
+            REJECTED("Rejected"),
+            NOT_FOUND("Not found"),
+            IN_PROCESS("In Process");
+        
+            private String value;
+            public String getValue() {
+                return value;
+                }
+            private Status(String value) {
+                this.value = value;
+            } 
+        }
+
         Document document = null;
         try {
             document = Jsoup.connect("https://frs.gov.cz/en/ioff/application-status")
@@ -25,25 +41,24 @@ public class StatusCheck {
             e.printStackTrace();
         }
 
-        String approvedStatus = String.valueOf(document.getElementsMatchingOwnText("Decided – APPROVED"));
-        String inprocessStatus = String.valueOf(document.getElementsMatchingOwnText("In Process"));
-        String rejectedStatus = String.valueOf(document.getElementsMatchingOwnText("Decided – REJECTED"));
-        String notFoundStatus = String.valueOf(document.getElementsMatchingOwnText("Not found"));
+        String approved = document.select("div:contains(APPROVED)").text();
+        String rejected = document.select("div:contains(REJECTED)").text();
+        String notFound = document.select("div:contains(Not found)").text();
+        String inProcess = document.select("div:contains(In Process)").text();
 
-        String result = "Something went wrong";
-
-        if (!approvedStatus.isEmpty()) {
-            result = "Decided - Approved";
+        if(!approved.isBlank()){
+            return Status.APPROVED.getValue();
         }
-        if (!inprocessStatus.isEmpty()) {
-            result = "In Process";
+        if (!rejected.isBlank()) {
+            return Status.REJECTED.getValue();
         }
-        if (!rejectedStatus.isEmpty()) {
-            result = "Decided - Rejected";
+        if (!notFound.isBlank()) {
+            return Status.NOT_FOUND.getValue();
         }
-        if (!notFoundStatus.isEmpty()) {
-            result = "Not found";
-        }
-        return result;
+        if (!inProcess.isBlank()) {
+            return Status.IN_PROCESS.getValue();
+        }        
+        
+        return errorStatus;
     }
 }

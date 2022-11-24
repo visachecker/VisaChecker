@@ -18,7 +18,7 @@ public class ImportDatabase {
     public List<UserHelper> get_data() throws IOException, InterruptedException {
 
 
-        reference.child("users").orderByChild("finalStatus").equalTo("false").addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.orderByChild("finalStatus").equalTo("false").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot snapshot) {

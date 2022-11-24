@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class FirebaseService {
     public FirebaseService() {
         AddChildDetection addChildDetection = new AddChildDetection();
-        FirebaseDatabase.getInstance().getReference().child("users").orderByChild("firstTimeAdded").equalTo("true").addChildEventListener(addChildDetection);
+        FirebaseDatabase.getInstance().getReference().orderByChild("firstTimeAdded").equalTo("true").addChildEventListener(addChildDetection);
     }
 }

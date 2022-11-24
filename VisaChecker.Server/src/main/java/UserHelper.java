@@ -2,16 +2,17 @@ package main.java;
 
 public class UserHelper {
 
-    private String appNum, appNumFak, type, year, visaStatus, uniqueID, firstTimeAdded, finalStatus;
+    private String appNum, appNumFak, type, year, email, visaStatus, uniqueID, firstTimeAdded, finalStatus;
 
     public UserHelper() {
     }
 
-    public UserHelper(String appNum, String appNumFak, String type, String year, String status, String uniqueID, String firstTimeAdded, String finalStatus) {
+    public UserHelper(String appNum, String appNumFak, String type, String year, String email, String status, String uniqueID, String firstTimeAdded, String finalStatus) {
         this.appNum = appNum;
         this.appNumFak = appNumFak;
         this.type = type;
         this.year = year;
+        this.email = email;
         this.visaStatus = status;
         this.uniqueID = uniqueID;
         this.firstTimeAdded = firstTimeAdded;
@@ -48,6 +49,14 @@ public class UserHelper {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getStatus() {

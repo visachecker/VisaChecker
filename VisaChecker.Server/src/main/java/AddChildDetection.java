@@ -16,7 +16,8 @@ public class AddChildDetection implements ChildEventListener {
         user = snapshot.getValue(UserHelper.class);
         String status = StatusCheck.check(user.getAppNum(), user.getAppNumFak(), user.getType(), user.getYear());
         UpdateStatus update = new UpdateStatus();
-        update.update_data(user.getUniqueID() + " - " + user.getAppNum(), status);
+        System.out.print("Application with number: " + user.getAppNum() + " just added, status is: " + status);
+        update.update_data(user.getUniqueID() + "-" + user.getAppNum(), status);
     }
 
     @Override
