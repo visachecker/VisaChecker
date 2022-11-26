@@ -1,0 +1,35 @@
+on:
+  workflow_run:
+    workflows: ["ci"]
+    branches: [main]
+    types: 
+      - completed
+permissions:
+  contents: read
+
+jobs:
+  deploy-ui:
+    defaults:
+      run:
+        working-directory: ./VisaChecker.UI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+          cache-dependency-path: VisaChecker.UI/package-lock.json
+      - name: Install project dependencies
+        run: npm ci
+      - run: npm run build
+      - name: Deploy to EC2
+        uses: easingthemes/ssh-deploy@main
+        env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            SOURCE: "build/"
+            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+            REMOTE_USER: ${{ secrets.REMOTE_USER }}
+            TARGET: "/var/www/build"
+            EXCLUDE: "/dist/, /node_modules/"
