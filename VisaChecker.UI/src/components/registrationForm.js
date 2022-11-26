@@ -40,6 +40,7 @@ function RegistrationForm() {
     const newPostKey = push(child(ref(database), 'posts')).key;
     const updates = {};
     updates['/' + newPostKey] = obj;
+    console.log('It just works');
 
     return update(ref(database), updates);
   };
