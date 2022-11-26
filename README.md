@@ -15,9 +15,12 @@ Branch names must contain issue number in the beginning. No direct pushes to `ma
 
 
 ## Documentation
-### Installation
+## Installation
 * First, be sure that you have [Node.js](https://nodejs.org/en/) installed.
 * After cloning project run ```npm install``` in the folder **VisaChecker.UI**.
 * **VisaChecker.Server** is using **Gradle**, if you open the project as monorepo, Gradle will run automatically, but if you want to run some of the Gradle tasks, you need to open **VisaChecker.Server** as a separate project.
 * To launch frontend execute the command ```npm run``` in **VisaChecker.UI** folder.
 * To run the backend launch Main.java in **VisaChecker.Server** folder as you normally do with java programs.
+## Architecture draft
+### Diagram
+https://miro.com/app/board/uXjVPAext0w=/
