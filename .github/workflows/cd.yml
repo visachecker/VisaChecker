@@ -1,9 +1,9 @@
 on:
-#  workflow_run:
-#    workflows: ["ci"]
-#    branches: [main]
-#    types: 
-#      - completed
+  #  workflow_run:
+  #    workflows: ["ci"]
+  #    branches: [main]
+  #    types:
+  #      - completed
   pull_request:
     branches: ["main"]
 permissions:
@@ -26,12 +26,21 @@ jobs:
       - name: Install project dependencies
         run: npm ci
       - run: npm run build
-      - name: Deploy to EC2
+      - name: Deploy to server
         uses: easingthemes/ssh-deploy@main
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_EC2 }}
-            SOURCE: "VisaChecker.UI/build/"
-            REMOTE_HOST: ${{ secrets.SSH_EC2_HOST }}
-            REMOTE_USER: ${{ secrets.SSH_EC2_USER }}
-            TARGET: ${{ secrets.SSH_TARGET }}
-            EXCLUDE: "/dist/, /node_modules/"
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_EC2 }}
+          SOURCE: "VisaChecker.UI/build/"
+          REMOTE_HOST: ${{ secrets.SSH_EC2_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_EC2_USER }}
+          TARGET: ${{ secrets.SSH_TARGET }}
+          EXCLUDE: "/dist/, /node_modules/"
+      - name: Deploy nginx
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_EC2_HOST }}
+          username: ${{ secrets.SSH_EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_EC2 }}
+          script: |
+            sudo mv /home/ubuntu/VisaChecker/* /var/www/build/                  
+            sudo service nginx restart
