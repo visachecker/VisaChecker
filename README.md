@@ -1,3 +1,5 @@
+# [Check us out!](https://35.157.137.195/)
+
 # VisaChecker Development Process
 
 ## Status updates
@@ -11,7 +13,8 @@ Once a week (on Sunday) team has a meeting, where:
  
 ## Development
 ### Branching
-Branch names must contain issue number in the beginning. No direct pushes to `main` branch are allowed. Details: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
+* Branch names must contain issue number in the beginning. No direct pushes to `main` branch are allowed. Details: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
+* Updates to `README.md` can go through simpler commit process - straight commit to `main`.
 
 
 ## Documentation
