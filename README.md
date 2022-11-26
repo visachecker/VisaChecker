@@ -1,5 +1,6 @@
 # [Check us out!](https://35.157.137.195/)
-
+[![VisaChecker.CD](https://github.com/visachecker/VisaChecker/actions/workflows/cd.yml/badge.svg)](https://github.com/visachecker/VisaChecker/actions/workflows/cd.yml)
+[![VisaChecker.CI](https://github.com/visachecker/VisaChecker/actions/workflows/ci.yml/badge.svg)](https://github.com/visachecker/VisaChecker/actions/workflows/ci.yml)
 # VisaChecker Development Process
 
 ## Status updates
