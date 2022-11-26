@@ -29,9 +29,9 @@ jobs:
       - name: Deploy to EC2
         uses: easingthemes/ssh-deploy@main
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_EC2 }}
             SOURCE: "build/"
-            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-            REMOTE_USER: ${{ secrets.REMOTE_USER }}
+            REMOTE_HOST: ${{ secrets.SSH_EC2_HOST }}
+            REMOTE_USER: ${{ secrets.SSH_EC2_USER }}
             TARGET: "/var/www/build"
             EXCLUDE: "/dist/, /node_modules/"
