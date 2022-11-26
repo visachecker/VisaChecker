@@ -27,3 +27,4 @@ yarn-error.log*
 **/.gradle
 **/build
 *.class
+**/ServiceAccountKeyVisa.json
