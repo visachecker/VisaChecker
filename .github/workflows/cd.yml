@@ -42,5 +42,6 @@ jobs:
           username: ${{ secrets.SSH_EC2_USER }}
           key: ${{ secrets.SSH_PRIVATE_EC2 }}
           script: |
+            sudo rm -rf /var/www/build/*
             sudo mv /home/ubuntu/VisaChecker/* /var/www/build/                  
             sudo service nginx restart
