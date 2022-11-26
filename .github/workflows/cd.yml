@@ -1,0 +1,47 @@
+name: VisaChecker.CD
+
+on:
+   workflow_run:
+     workflows: ["VisaChecker.CI"]
+     branches: [main]
+     types:
+       - completed
+permissions:
+  contents: read
+
+jobs:
+  deploy-ui:
+    defaults:
+      run:
+        working-directory: ./VisaChecker.UI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+          cache-dependency-path: VisaChecker.UI/package-lock.json
+      - name: Install project dependencies
+        run: npm ci
+      - run: npm run build
+      - name: Deploy to server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_EC2 }}
+          SOURCE: "VisaChecker.UI/build/"
+          REMOTE_HOST: ${{ secrets.SSH_EC2_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_EC2_USER }}
+          TARGET: ${{ secrets.SSH_TARGET }}
+          EXCLUDE: "/dist/, /node_modules/"
+      - name: Deploy nginx
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_EC2_HOST }}
+          username: ${{ secrets.SSH_EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_EC2 }}
+          script: |
+            sudo rm -rf /var/www/build/*
+            sudo mv /home/ubuntu/VisaChecker/* /var/www/build/                  
+            sudo service nginx restart

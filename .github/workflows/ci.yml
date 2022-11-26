@@ -1,3 +1,5 @@
+name: VisaChecker.CI
+
 on:
   push:
     branches: ["main"]
