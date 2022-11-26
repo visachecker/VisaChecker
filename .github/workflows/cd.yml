@@ -30,8 +30,8 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_EC2 }}
-            SOURCE: "/VisaChecker.UI/build/"
+            SOURCE: "VisaChecker.UI/build/"
             REMOTE_HOST: ${{ secrets.SSH_EC2_HOST }}
             REMOTE_USER: ${{ secrets.SSH_EC2_USER }}
-            TARGET: "/var/www/build"
+            TARGET: ${{ secrets.SSH_TARGET }}
             EXCLUDE: "/dist/, /node_modules/"
