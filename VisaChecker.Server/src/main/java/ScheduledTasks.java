@@ -20,7 +20,7 @@ public class ScheduledTasks {
     //Scheduling run of checking entire database
     @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() throws InterruptedException, ExecutionException, IOException {
-        System.out.print("Check database by shedule");
+        log.info("Check database by shedule");
         databaseCheck.checkDatabase();
     }
 }
