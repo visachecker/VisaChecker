@@ -1,7 +1,7 @@
 package com.visachecker.application.applications.infrastructure;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.visachecker.application.applications.domain.Application;
 import com.visachecker.application.applications.domain.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +9,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ApplicationDynamoDbRepository implements ApplicationRepository {
-    private final DynamoDBMapper dynamoDBMapper;
+    private final DynamoDBMapper mapper;
 
     @Autowired
-    public ApplicationDynamoDbRepository(DynamoDBMapper dynamoDBMapper) {
+    public ApplicationDynamoDbRepository(DynamoDBMapper mapper) {
 
-        this.dynamoDBMapper = dynamoDBMapper;
+        this.mapper = mapper;
     }
 
     @Override
     public Iterable<Application> getAll() {
-        return dynamoDBMapper.query(Application.class, new DynamoDBQueryExpression<>());
+        return mapper.scan(Application.class, new DynamoDBScanExpression());
     }
 
     @Override
     public void save(Application application) {
-        dynamoDBMapper.save(application);
+        mapper.save(application);
     }
 }
