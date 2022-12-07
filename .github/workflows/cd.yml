@@ -45,3 +45,7 @@ jobs:
             sudo rm -rf /var/www/build/*
             sudo mv /home/ubuntu/VisaChecker/* /var/www/build/                  
             sudo service nginx restart
+
+            export AMAZON_AWS_ACCESKEY=${{ secrets.AMAZON_AWS_ACCESKEY}}
+            export AMAZON_AWS_SECRETKEY=${{ secrets.AMAZON_AWS_SECRETKEY}}
+            export AMAZON_DYNAMODB_ENDPOINT=${{ secrets.AMAZON_DYNAMODB_ENDPOINT}}
