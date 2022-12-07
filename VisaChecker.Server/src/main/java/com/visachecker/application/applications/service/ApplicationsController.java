@@ -1,18 +1,24 @@
 package com.visachecker.application.applications.service;
 
 import com.visachecker.application.applications.domain.Application;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import com.visachecker.application.applications.domain.ApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/applications")
 public class ApplicationsController {
 
+    @Autowired
+    private ApplicationService applicationService;
+
     @GetMapping
-    public List<Application> GetAllApplications() {
-        return List.of(new Application("sad", "dasa"));
+    public Iterable<Application> getAllApplications() {
+        return applicationService.getApplications();
+    }
+
+    @PostMapping
+    public String createApplication(@RequestBody Application application) {
+        return applicationService.createApplication(application);
     }
 }
