@@ -1,11 +1,11 @@
 name: VisaChecker.CD
 
 on:
-   workflow_run:
-     workflows: ["VisaChecker.CI"]
-     branches: [main]
-     types:
-       - completed
+  workflow_run:
+    workflows: ["VisaChecker.CI"]
+    branches: [main]
+    types:
+      - completed
 permissions:
   contents: read
 
@@ -46,6 +46,6 @@ jobs:
             sudo mv /home/ubuntu/VisaChecker/* /var/www/build/                  
             sudo service nginx restart
 
-            export AMAZON_AWS_ACCESKEY=${{ secrets.AMAZON_AWS_ACCESKEY}}
-            export AMAZON_AWS_SECRETKEY=${{ secrets.AMAZON_AWS_SECRETKEY}}
-            export AMAZON_DYNAMODB_ENDPOINT=${{ secrets.AMAZON_DYNAMODB_ENDPOINT}}
+            export AMAZON_AWS_ACCESKEY=${{ secrets.AMAZON_AWS_ACCESKEY }}
+            export AMAZON_AWS_SECRETKEY=${{ secrets.AMAZON_AWS_SECRETKEY }}
+            export AMAZON_DYNAMODB_ENDPOINT=${{ secrets.AMAZON_DYNAMODB_ENDPOINT }}
