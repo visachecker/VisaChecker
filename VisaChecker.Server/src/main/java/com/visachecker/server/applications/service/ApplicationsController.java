@@ -1,7 +1,7 @@
-package com.visachecker.application.applications.service;
+package com.visachecker.server.applications.service;
 
-import com.visachecker.application.applications.domain.Application;
-import com.visachecker.application.applications.domain.ApplicationService;
+import com.visachecker.server.applications.domain.Application;
+import com.visachecker.server.applications.domain.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

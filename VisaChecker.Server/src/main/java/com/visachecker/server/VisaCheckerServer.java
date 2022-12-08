@@ -1,6 +1,6 @@
-package com.visachecker.application;
+package com.visachecker.server;
 
-import com.visachecker.application.configuration.DynamoDBConfiguration;
+import com.visachecker.server.configuration.DynamoDBConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,10 +15,10 @@ import org.springframework.context.annotation.Import;
         DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @Configuration
 @Import(DynamoDBConfiguration.class)
-public class VisaCheckerApplication {
+public class VisaCheckerServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(VisaCheckerApplication.class, args);
+        SpringApplication.run(VisaCheckerServer.class, args);
     }
 
 }

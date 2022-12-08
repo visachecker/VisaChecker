@@ -1,4 +1,4 @@
-package com.visachecker.application.applications.domain;
+package com.visachecker.server.applications.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

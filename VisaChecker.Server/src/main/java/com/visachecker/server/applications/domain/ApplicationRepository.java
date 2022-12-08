@@ -1,4 +1,4 @@
-package com.visachecker.application.applications.domain;
+package com.visachecker.server.applications.domain;
 
 public interface ApplicationRepository {
     Iterable<Application> getAll();

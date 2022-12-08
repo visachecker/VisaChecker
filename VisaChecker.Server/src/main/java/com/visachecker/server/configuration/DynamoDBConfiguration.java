@@ -1,4 +1,4 @@
-package com.visachecker.application.configuration;
+package com.visachecker.server.configuration;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;

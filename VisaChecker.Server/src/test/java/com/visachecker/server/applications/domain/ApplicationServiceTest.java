@@ -1,8 +1,5 @@
-package com.visachecker.application;
+package com.visachecker.server.applications.domain;
 
-import com.visachecker.application.applications.domain.Application;
-import com.visachecker.application.applications.domain.ApplicationRepository;
-import com.visachecker.application.applications.domain.ApplicationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
