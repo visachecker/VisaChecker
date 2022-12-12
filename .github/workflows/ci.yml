@@ -22,11 +22,13 @@ jobs:
         with:
           java-version: 17
           distribution: "adopt"
-          cache: gradle
-      - name: Chmod ./gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+          cache: maven
+      - name: Chmod ./mvnw
+        run: chmod +x mvnw
+      - name: Build
+        run: ./mvnw compile
+      - name: Test
+        run: ./mvnw test
   build-ui:
     defaults:
       run:
