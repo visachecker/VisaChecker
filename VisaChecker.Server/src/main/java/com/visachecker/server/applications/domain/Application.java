@@ -10,12 +10,18 @@ public class Application {
 
     private String id;
     private String number;
+    private String numberFake;
+    private ApplicationCode code;
+    private String year;
 
     public Application() {
     }
 
-    public Application(String number) {
+    public Application(String number, String numberFake, ApplicationCode code, String year) {
         this.number = number;
+        this.numberFake = numberFake;
+        this.code = code;
+        this.year = year;
     }
 
     @DynamoDBHashKey
@@ -37,5 +43,30 @@ public class Application {
         this.number = number;
     }
 
+    @DynamoDBAttribute
+    public String getNumberFake() {
+        return numberFake;
+    }
 
+    public void setNumberFake(String numberFake) {
+        this.numberFake = numberFake;
+    }
+
+    @DynamoDBAttribute
+    public ApplicationCode getCode() {
+        return code;
+    }
+
+    public void setCode(ApplicationCode code) {
+        this.code = code;
+    }
+
+    @DynamoDBAttribute
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 }

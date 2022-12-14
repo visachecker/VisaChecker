@@ -21,8 +21,8 @@ public class ApplicationServiceTest {
     @BeforeEach
     void setMockOutput() {
         when(applicationDynamoDbRepository.getAll()).thenReturn(List.of(
-                new Application("test-number"),
-                new Application("test-number-2")
+                new Application("41212", "XX", ApplicationCode.DP, "2022"),
+                new Application("12425", "XX", ApplicationCode.VP, "2021")
 
         ));
     }
@@ -33,7 +33,7 @@ public class ApplicationServiceTest {
 
     @Test
     public void SaveGeneratesId() {
-        var id = applicationService.createApplication(new Application("test"));
+        var id = applicationService.createApplication(new Application("41212", "XX", ApplicationCode.DP, "2022"));
         assertNotNull(id);
     }
 }
