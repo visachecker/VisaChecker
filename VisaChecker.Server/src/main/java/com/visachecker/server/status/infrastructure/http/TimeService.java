@@ -1,4 +1,4 @@
-package com.visachecker.server.integrations.mvcr.infrastructure.http;
+package com.visachecker.server.status.infrastructure.http;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +9,14 @@ import java.util.TimerTask;
 
 @Service
 public class TimeService {
-    private final MvcrApplicationStatusHttpClient client;
+    private final StatusHttpClient client;
     private String time;
     private boolean ready = false;
     private final Timer timer = new Timer();
     private final int maturityDelay = 30_000;
 
     @Autowired
-    public TimeService(@Autowired MvcrApplicationStatusHttpClient client) {
+    public TimeService(@Autowired StatusHttpClient client) {
         this.client = client;
     }
 

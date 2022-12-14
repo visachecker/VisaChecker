@@ -1,15 +1,15 @@
-package com.visachecker.server.integrations.mvcr.infrastructure.http;
+package com.visachecker.server.status.infrastructure.http;
 
-import com.visachecker.server.integrations.mvcr.domain.Decision;
-import com.visachecker.server.integrations.mvcr.domain.Status;
-import com.visachecker.server.integrations.mvcr.domain.exceptions.ApplicationNotFoundException;
+import com.visachecker.server.status.domain.Decision;
+import com.visachecker.server.status.domain.Status;
+import com.visachecker.server.status.domain.exceptions.ApplicationNotFoundException;
 import org.jsoup.nodes.Document;
 
 
-public class MvcrResponseParser {
+public class StatusResponseParser {
     private final Document document;
 
-    public MvcrResponseParser(Document document) {
+    public StatusResponseParser(Document document) {
         this.document = document;
     }
 

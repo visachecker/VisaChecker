@@ -1,21 +1,21 @@
-package com.visachecker.server.integrations.mvcr.infrastructure.http;
+package com.visachecker.server.status.infrastructure.http;
 
 import com.visachecker.server.applications.domain.Application;
-import com.visachecker.server.integrations.mvcr.domain.Status;
-import com.visachecker.server.integrations.mvcr.domain.exceptions.ApplicationNotFoundException;
+import com.visachecker.server.status.domain.Status;
+import com.visachecker.server.status.domain.exceptions.ApplicationNotFoundException;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
-public class MvcrApplicationStatusHttpClient {
+public class StatusHttpClient {
     private final String path = "https://frs.gov.cz/cs/ioff/application-status";
 
     public String getHoneypotTime() {
         try {
             var document = Jsoup.connect(path).get();
-            return new MvcrResponseParser(document).getHoneyPotTime();
+            return new StatusResponseParser(document).getHoneyPotTime();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -34,7 +34,7 @@ public class MvcrApplicationStatusHttpClient {
                     data("honeypot_time", honeyPotTime)
                     .post();
 
-            return new MvcrResponseParser(document).getStatus();
+            return new StatusResponseParser(document).getStatus();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

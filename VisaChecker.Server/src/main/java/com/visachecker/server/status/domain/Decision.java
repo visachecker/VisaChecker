@@ -1,4 +1,4 @@
-package com.visachecker.server.integrations.mvcr.domain;
+package com.visachecker.server.status.domain;
 
 public enum Decision {
     APPROVED,
