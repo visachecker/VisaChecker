@@ -16,7 +16,7 @@ public class StatusResponseParser {
     public String getHoneyPotTime() {
         var timeElement = document.getElementsByAttributeValue("name", "honeypot_time").first();
         if (timeElement == null) {
-            throw new IllegalArgumentException(); //TODO: proper exception
+            throw new IllegalStateException("No time element in status response");
         }
         return timeElement.val();
     }
@@ -33,6 +33,6 @@ public class StatusResponseParser {
                 default -> throw new IllegalArgumentException();
             });
         }
-        throw new IllegalArgumentException(); //TODO: proper
+        throw new IllegalStateException("No status element in status response");
     }
 }

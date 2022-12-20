@@ -23,7 +23,7 @@ public class ApplicationStatusController {
         try {
             return new ResponseEntity<>(statusService.getStatus(application), HttpStatus.OK);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>("Server is still initializing", HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<>("Server is still initializing: %s".formatted(e.getMessage()), HttpStatus.SERVICE_UNAVAILABLE);
         } catch (ApplicationNotFoundException e) {
             return new ResponseEntity<>("Your application was not found", HttpStatus.NOT_FOUND);
         }

@@ -11,9 +11,10 @@ import java.util.TimerTask;
 public class TimeService {
     private final StatusHttpClient client;
     private String time;
-    private boolean ready = false;
+    private boolean ready;
     private final Timer timer = new Timer();
-    private final int maturityDelay = 30_000;
+    private final int maturityDelayMs = 30 * 1000;
+    private final int refreshTimeMs = 60 * 60 * 1000;
 
     @Autowired
     public TimeService(@Autowired StatusHttpClient client) {
@@ -22,14 +23,22 @@ public class TimeService {
 
     @PostConstruct
     private void setNewTime() {
-        //Make atomic, when more threads write
+        ready = false;
         time = client.getHoneypotTime();
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 ready = true;
             }
-        }, maturityDelay);
+        }, maturityDelayMs);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                setNewTime();
+            }
+        }, refreshTimeMs);
     }
 
     public String getTime() {
