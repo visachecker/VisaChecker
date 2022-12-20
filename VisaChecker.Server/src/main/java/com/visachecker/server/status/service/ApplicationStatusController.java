@@ -1,6 +1,7 @@
 package com.visachecker.server.status.service;
 
-import com.visachecker.server.applications.domain.Application;
+import com.visachecker.server.applications.service.models.ApplicationCreationDTO;
+import com.visachecker.server.applications.service.models.ApplicationMapper;
 import com.visachecker.server.status.domain.StatusService;
 import com.visachecker.server.status.domain.exceptions.ApplicationNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,12 @@ public class ApplicationStatusController {
 
     @Autowired
     private StatusService statusService;
+    private ApplicationMapper mapper;
 
     @PostMapping()
-    public ResponseEntity<Object> getStatus(@RequestBody Application application) {
+    public ResponseEntity<Object> getStatus(@RequestBody ApplicationCreationDTO application) {
         try {
-            return new ResponseEntity<>(statusService.getStatus(application), HttpStatus.OK);
+            return new ResponseEntity<>(statusService.getStatus(mapper.toApplication(application)), HttpStatus.OK);
         } catch (IllegalStateException e) {
             return new ResponseEntity<>("Server is still initializing: %s".formatted(e.getMessage()), HttpStatus.SERVICE_UNAVAILABLE);
         } catch (ApplicationNotFoundException e) {
