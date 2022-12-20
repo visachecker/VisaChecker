@@ -11,9 +11,7 @@ import java.util.TimerTask;
 public class TimeService {
     private final StatusHttpClient client;
     private String time;
-    private boolean ready;
     private final Timer timer = new Timer();
-    private final int maturityDelayMs = 30 * 1000;
     private final int refreshTimeMs = 60 * 60 * 1000;
 
     @Autowired
@@ -23,15 +21,7 @@ public class TimeService {
 
     @PostConstruct
     private void setNewTime() {
-        ready = false;
         time = client.getHoneypotTime();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                ready = true;
-            }
-        }, maturityDelayMs);
 
         timer.schedule(new TimerTask() {
             @Override
@@ -42,9 +32,6 @@ public class TimeService {
     }
 
     public String getTime() {
-        if (!ready) {
-            throw new IllegalStateException("Can't access honeypot time before maturity");
-        }
         return time;
     }
 }
