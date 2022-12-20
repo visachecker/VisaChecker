@@ -14,6 +14,10 @@ public class ApplicationService {
         return applicationRepository.getAll();
     }
 
+    public Application getApplication(String id) {
+        return applicationRepository.getApplicationById(id);
+    }
+
     public String createApplication(Application application) {
         String id = UUID.randomUUID().toString();
         application.setId(id);

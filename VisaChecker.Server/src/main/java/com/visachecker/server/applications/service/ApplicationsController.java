@@ -6,18 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/applications")
+//@RequestMapping("/applications")
 public class ApplicationsController {
 
     @Autowired
     private ApplicationService applicationService;
 
-    @GetMapping
+    @GetMapping("/applications")
     public Iterable<Application> getAllApplications() {
         return applicationService.getApplications();
     }
 
-    @PostMapping
+    @GetMapping("/applications/{id}")
+    public Application getAllApplicationById(@PathVariable String id) {
+        return applicationService.getApplication(id);
+    }
+
+    @PostMapping("/applications")
     public String createApplication(@RequestBody Application application) {
         return applicationService.createApplication(application);
     }
