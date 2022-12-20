@@ -1,6 +1,7 @@
 package com.visachecker.server.applications.infrastructure;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.visachecker.server.applications.domain.Application;
 import com.visachecker.server.applications.domain.ApplicationRepository;
@@ -20,6 +21,11 @@ public class ApplicationDynamoDbRepository implements ApplicationRepository {
     @Override
     public Iterable<Application> getAll() {
         return mapper.scan(Application.class, new DynamoDBScanExpression());
+    }
+
+    @Override
+    public Application getApplicationById(String id) {
+        return mapper.load(Application.class, id, new DynamoDBMapperConfig(DynamoDBMapperConfig.ConsistentReads.CONSISTENT));
     }
 
     @Override
