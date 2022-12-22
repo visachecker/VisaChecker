@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class ApplicationServiceTest {
+public class ApplicationServiceTests {
     @InjectMocks
     private ApplicationService applicationService;
     @Mock
@@ -21,19 +21,15 @@ public class ApplicationServiceTest {
     @BeforeEach
     void setMockOutput() {
         when(applicationDynamoDbRepository.getAll()).thenReturn(List.of(
-                new Application("test-number"),
-                new Application("test-number-2")
+                new Application("41212", "XX", ApplicationCode.DP, "2022"),
+                new Application("1126", "XX", ApplicationCode.VP, "2021")
 
         ));
     }
 
-    public ApplicationServiceTest() {
-        applicationService = new ApplicationService();
-    }
-
     @Test
     public void SaveGeneratesId() {
-        var id = applicationService.createApplication(new Application("test"));
+        var id = applicationService.createApplication(new Application("41212", "XX", ApplicationCode.DP, "2022"));
         assertNotNull(id);
     }
 }
